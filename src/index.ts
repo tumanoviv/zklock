@@ -1,7 +1,3 @@
-import { greetUser } from '$utils/greet';
-
-window.Webflow ||= [];
-window.Webflow.push(() => {
-  const name = 'John Doe';
-  greetUser(name);
-});
+// src/index.ts
+import './index.css';
+console.log(1);
