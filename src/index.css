@@ -1,0 +1,44 @@
+/* BUTTONS */
+
+/* .button::before {
+  --size: 6px;
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: var(--size);
+  top: calc(-1 * var(--size));
+  background-color: currentColor;
+}
+
+.button::after {
+  --size: 6px;
+  position: absolute;
+  content: '';
+  width: var(--size);
+  height: 100%;
+  top: 0;
+  left: calc(-1 * var(--size));
+  background-color: currentColor;
+}
+.button__text::before {
+  --size: 6px;
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: var(--size);
+  bottom: calc(-1 * var(--size));
+  background-color: currentColor;
+}
+.button__text::after {
+  --size: 6px;
+  position: absolute;
+  content: '';
+  width: var(--size);
+  height: 100%;
+  top: 0;
+  right: calc(-1 * var(--size));
+  background-color: currentColor;
+}
+.button:hover {
+  box-shadow: 0 0 50px 0 currentColor;
+} */

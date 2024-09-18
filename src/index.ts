@@ -1,3 +1,203 @@
 // src/index.ts
 import './index.css';
-console.log(1);
+
+import { gsap, random } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import SplitType from 'split-type';
+
+gsap.registerPlugin(ScrollTrigger);
+
+init();
+
+function init() {
+  hero();
+  productIntro();
+  about();
+  productOne();
+  productTwo();
+  productThree();
+  roadmap();
+  featured();
+  cardProducts();
+}
+
+function hero() {
+  const heading = new SplitType('.hero__heading');
+  const firstLine = heading.lines[0].querySelectorAll('.char');
+  const secondLine = heading.lines[1].querySelectorAll('.char');
+  const therdLine = heading.lines[2].querySelectorAll('.char');
+  const button = document.querySelector('.hero .button');
+  const subTitle = document.querySelector('.hero__subtitle');
+
+  const tl = gsap.timeline({
+    defaults: { ease: 'expo', stagger: 0.1, autoAlpha: 0, yPercent: 100 },
+  });
+
+  tl.from(firstLine, {});
+  tl.from(secondLine, {}, '-=80%');
+  tl.from(therdLine, {}, '-=80%');
+  tl.from(button, { duration: 2 }, '1');
+  tl.from(subTitle, { duration: 1.5 }, '1');
+}
+
+function productIntro() {
+  const heading = new SplitType('.features__title');
+  const firstLine = heading.lines[0].querySelectorAll('.char');
+  const secondLine = heading.lines[1].querySelectorAll('.char');
+  const button = document.querySelector('.intro__container .button');
+  const subTitle = document.querySelector('.features__subtitle');
+
+  const tl = gsap.timeline({
+    defaults: { ease: 'expo', stagger: 0.1, autoAlpha: 0, yPercent: 100 },
+    scrollTrigger: { trigger: '.features__intro', start: 'top bottom' },
+  });
+
+  tl.from(firstLine, {});
+  tl.from(secondLine, {}, '-=80%');
+  tl.from(subTitle, { yPercent: 50, duration: 1.5 }, '1');
+  tl.from(button, { duration: 2 }, '1.2');
+}
+
+function about() {
+  const heading = new SplitType('.about__title');
+  const firstLine = heading.lines[0].querySelectorAll('.char');
+
+  const button = document.querySelector('.about .button');
+  const subTitle = document.querySelector('.about__subtitle');
+  const text = document.querySelector('.about__text');
+
+  const tl = gsap.timeline({
+    defaults: { ease: 'expo', stagger: 0.1, autoAlpha: 0, yPercent: 100 },
+    scrollTrigger: { trigger: '.about', start: 'top bottom' },
+  });
+
+  tl.from(firstLine, {});
+  tl.from(subTitle, { yPercent: 50, duration: 1.5 }, '1');
+  tl.from(text, { yPercent: 50, duration: 1.5 }, '1.5');
+  tl.from(button, { duration: 2 }, '1.2');
+}
+
+function featured() {
+  const featured = document.querySelectorAll('.features__item');
+  featured.forEach((item) => {
+    item.addEventListener('mouseover', () => {
+      const arrow = item.querySelector('.arrow__wrapper');
+      arrow.classList.add('rotate');
+    });
+    item.addEventListener('mouseout', () => {
+      const arrow = item.querySelector('.arrow__wrapper');
+      arrow.classList.remove('rotate');
+    });
+  });
+}
+
+function productOne() {
+  const heading = new SplitType('.live__item.is-live-01 .live__item-title');
+  const firstLine = heading.lines[0].querySelectorAll('.char');
+
+  const button = document.querySelector('.live__item.is-live-01 .button');
+  const subTitle = document.querySelector('.live__item.is-live-01 .live__item-text');
+
+  const tl = gsap.timeline({
+    defaults: { ease: 'expo', stagger: 0.1, autoAlpha: 0, yPercent: 100 },
+    scrollTrigger: { trigger: '.live__item.is-live-01', start: 'top bottom' },
+  });
+
+  tl.from(firstLine, {});
+  tl.from(subTitle, { yPercent: 50, duration: 1.5 }, '1');
+  tl.from(button, { duration: 2 }, '1.2');
+}
+
+function productTwo() {
+  const heading = new SplitType('.live__item.is-live-02 .live__item-title');
+  const firstLine = heading.lines[0].querySelectorAll('.char');
+  const secondLine = heading.lines[1].querySelectorAll('.char');
+  const therdLine = heading.lines[2].querySelectorAll('.char');
+
+  const button = document.querySelector('.live__item.is-live-02 .button');
+  const subTitle = document.querySelector('.live__item.is-live-02 .live__item-text');
+
+  const tl = gsap.timeline({
+    defaults: { ease: 'expo', stagger: 0.1, autoAlpha: 0, yPercent: 100 },
+    scrollTrigger: { trigger: '.live__item.is-live-02', start: 'top bottom' },
+  });
+
+  tl.from(firstLine, {});
+  tl.from(secondLine, {}, '-=80%');
+  tl.from(therdLine, {}, '-=80%');
+  tl.from(subTitle, { yPercent: 50, duration: 1.5 }, '1');
+  tl.from(button, { duration: 2 }, '1.2');
+}
+
+function productThree() {
+  const heading = new SplitType('.live__item.is-live-03 .live__item-title');
+  const firstLine = heading.lines[0].querySelectorAll('.char');
+
+  const button = document.querySelector('.live__item.is-live-03 .button');
+  const subTitle = document.querySelector('.live__item.is-live-03 .live__item-text');
+
+  const tl = gsap.timeline({
+    defaults: { ease: 'expo', stagger: 0.1, autoAlpha: 0, yPercent: 100 },
+    scrollTrigger: { trigger: '.live__item.is-live-03', start: 'top bottom' },
+  });
+
+  tl.from(firstLine, {});
+  tl.from(subTitle, { yPercent: 50, duration: 1.5 }, '1');
+  tl.from(button, { duration: 2 }, '1.2');
+}
+
+function cardProducts() {
+  const item = document.querySelector('.live__item.is-live-02');
+  const effect = document.querySelectorAll('.product__ui');
+  const rect = item.getBoundingClientRect();
+
+  const randomMin = gsap.utils.random(-5, -30, 1, true);
+  const randomPlus = gsap.utils.random(5, 30, 1, true);
+  const { width } = rect;
+  const { height } = rect;
+
+  const arraySetters = [];
+
+  effect.forEach((item, index) => {
+    const setter = {
+      x: gsap.quickSetter(item, 'x', 'px'),
+      y: gsap.quickSetter(item, 'y', 'px'),
+      minus: gsap.utils.mapRange(0, width, randomMin(), randomPlus()),
+      plus: gsap.utils.mapRange(0, width, randomMin(), randomPlus()),
+    };
+    arraySetters.push(setter);
+  });
+
+  document.querySelector('body').addEventListener('mousemove', (e) => {
+    arraySetters.forEach((item, index) => {
+      const obj = arraySetters[index];
+      obj.x(obj.minus(e.clientX - rect.left));
+      obj.y(obj.plus(e.clientY - rect.top));
+    });
+  });
+}
+
+function roadmap() {
+  const heading = new SplitType('.roadmap_title');
+  const firstLine = heading.lines[0].querySelectorAll('.char');
+
+  const subTitle = document.querySelector('.live__item-text');
+  const text = document.querySelector('.about__text');
+
+  const tl = gsap.timeline({
+    defaults: { ease: 'expo', stagger: 0.1, autoAlpha: 0, yPercent: 100 },
+    scrollTrigger: { trigger: '.features__intro', start: 'top center' },
+  });
+
+  tl.from(firstLine, {});
+
+  const roadmapItem = document.querySelectorAll('.roadmap__item');
+  roadmapItem.forEach((item) => {
+    gsap.from(item, {
+      yPercent: 30,
+      autoAlpha: 0,
+      duration: 1.2,
+      scrollTrigger: { trigger: item },
+    });
+  });
+}
