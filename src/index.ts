@@ -18,7 +18,6 @@ function init() {
   productThree();
   roadmap();
   featured();
-  cardProducts();
   dop();
 }
 
@@ -89,6 +88,21 @@ function featured() {
       const arrow = item.querySelector('.arrow__wrapper');
       arrow.classList.remove('rotate');
     });
+
+    const num = item.querySelector('.features__icon');
+    const heading = item.querySelector('.features__item-title');
+    const headingSplit = new SplitType(heading);
+    const headingLine = headingSplit.lines;
+    const text = item.querySelector('.features__item-text');
+    const arrow = item.querySelector('.arrow__wrapper');
+
+    const tl = gsap.timeline({
+      defaults: { yPercent: 100, autoAlpha: 0, ease: 'ease' },
+      scrollTrigger: { trigger: item },
+    });
+    tl.from(num, {});
+    tl.from(headingLine, { stagger: 0.1 }, '-=30%');
+    tl.from(text, {}, '-=30%');
   });
 }
 
@@ -136,6 +150,7 @@ function productThree() {
 
   const button = document.querySelector('.live__item.is-live-03 .button');
   const subTitle = document.querySelector('.live__item.is-live-03 .live__item-text');
+  const card = document.querySelectorAll('[card="desktop"]');
 
   const tl = gsap.timeline({
     defaults: { ease: 'expo', stagger: 0.1, autoAlpha: 0, yPercent: 100 },
@@ -145,37 +160,44 @@ function productThree() {
   tl.from(firstLine, {});
   tl.from(subTitle, { yPercent: 50, duration: 1.5 }, '1');
   tl.from(button, { duration: 2 }, '1.2');
-}
 
-function cardProducts() {
-  const item = document.querySelector('.live__item.is-live-02');
-  const effect = document.querySelectorAll('.product__ui');
-  const rect = item.getBoundingClientRect();
+  cardProducts();
 
-  const randomMin = gsap.utils.random(-5, -30, 1, true);
-  const randomPlus = gsap.utils.random(5, 30, 1, true);
-  const { width } = rect;
-  const { height } = rect;
-
-  const arraySetters = [];
-
-  effect.forEach((item, index) => {
-    const setter = {
-      x: gsap.quickSetter(item, 'x', 'px'),
-      y: gsap.quickSetter(item, 'y', 'px'),
-      minus: gsap.utils.mapRange(0, width, randomMin(), randomPlus()),
-      plus: gsap.utils.mapRange(0, width, randomMin(), randomPlus()),
-    };
-    arraySetters.push(setter);
+  const tlCard = gsap.timeline({
+    scrollTrigger: { trigger: '.live__item.is-live-02', start: 'top center' },
   });
+  tlCard.from(card, { yPercent: 50, stagger: 0.1, autoAlpha: 0, duration: 1 });
 
-  document.querySelector('body').addEventListener('mousemove', (e) => {
-    arraySetters.forEach((item, index) => {
-      const obj = arraySetters[index];
-      obj.x(obj.minus(e.clientX - rect.left));
-      obj.y(obj.plus(e.clientY - rect.top));
+  function cardProducts() {
+    const item = document.querySelector('.live__item.is-live-02');
+    const effect = document.querySelectorAll('[card="desktop"]');
+    const rect = item.getBoundingClientRect();
+
+    const randomMin = gsap.utils.random(-5, -30, 1, true);
+    const randomPlus = gsap.utils.random(5, 30, 1, true);
+    const { width } = rect;
+    const { height } = rect;
+
+    const arraySetters = [];
+
+    effect.forEach((item, index) => {
+      const setter = {
+        x: gsap.quickSetter(item, 'x', 'px'),
+        y: gsap.quickSetter(item, 'y', 'px'),
+        minus: gsap.utils.mapRange(0, width, randomMin(), randomPlus()),
+        plus: gsap.utils.mapRange(0, width, randomMin(), randomPlus()),
+      };
+      arraySetters.push(setter);
     });
-  });
+
+    document.querySelector('body').addEventListener('mousemove', (e) => {
+      arraySetters.forEach((item, index) => {
+        const obj = arraySetters[index];
+        obj.x(obj.minus(e.clientX - rect.left));
+        obj.y(obj.plus(e.clientY - rect.top));
+      });
+    });
+  }
 }
 
 function roadmap() {
