@@ -29,15 +29,33 @@ function hero() {
   const button = document.querySelector('.hero .button');
   const subTitle = document.querySelector('.hero__subtitle');
 
-  const tl = gsap.timeline({
-    defaults: { ease: 'expo', stagger: 0.1, autoAlpha: 0, yPercent: 100 },
+  const mm = gsap.matchMedia();
+
+  mm.add('(min-width: 760px)', () => {
+    const tl = gsap.timeline({
+      defaults: { ease: 'expo', stagger: 0.1, autoAlpha: 0, yPercent: 100 },
+    });
+
+    tl.from(firstLine, {});
+    tl.from(secondLine, {}, '-=80%');
+    tl.from(therdLine, {}, '-=80%');
+    tl.from(button, { duration: 2 }, '1');
+    tl.from(subTitle, { duration: 1.5 }, '1');
   });
 
-  tl.from(firstLine, {});
-  tl.from(secondLine, {}, '-=80%');
-  tl.from(therdLine, {}, '-=80%');
-  tl.from(button, { duration: 2 }, '1');
-  tl.from(subTitle, { duration: 1.5 }, '1');
+  mm.add('(max-width: 500px)', () => {
+    const fourthLine = heading.lines[3].querySelectorAll('.char');
+    const tl = gsap.timeline({
+      defaults: { ease: 'expo', stagger: 0.1, autoAlpha: 0, yPercent: 100 },
+    });
+
+    tl.from(firstLine, {});
+    tl.from(secondLine, {}, '-=80%');
+    tl.from(therdLine, {}, '-=80%');
+    tl.from(fourthLine, {}, '-=80%');
+    tl.from(button, { duration: 2 }, '1');
+    tl.from(subTitle, { duration: 1.5 }, '1');
+  });
 }
 
 function productIntro() {
