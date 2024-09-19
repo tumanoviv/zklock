@@ -122,7 +122,7 @@ function productOne() {
   tl.from(firstLine, {});
   tl.from(subTitle, { yPercent: 50, duration: 1.5 }, '1');
   tl.from(button, { duration: 2 }, '1.2');
-  tl.from(image, {});
+  tl.from(image, { yPercent: 50, duration: 1.4 }, 1);
 }
 
 function productTwo() {
@@ -154,52 +154,71 @@ function productThree() {
   const subTitle = document.querySelector('.live__item.is-live-03 .live__item-text');
   const card = document.querySelectorAll('[card="desktop"]');
 
-  const tl = gsap.timeline({
-    defaults: { ease: 'expo', stagger: 0.1, autoAlpha: 0, yPercent: 100 },
-    scrollTrigger: { trigger: '.live__item.is-live-03', start: 'top bottom' },
-  });
-
-  tl.from(firstLine, {});
-  tl.from(subTitle, { yPercent: 50, duration: 1.5 }, '1');
-  tl.from(button, { duration: 2 }, '1.2');
-
-  cardProducts();
-
-  const tlCard = gsap.timeline({
-    scrollTrigger: { trigger: '.live__item.is-live-02', start: 'top center' },
-  });
-  tlCard.from(card, { yPercent: 50, stagger: 0.1, autoAlpha: 0, duration: 1 });
-
-  function cardProducts() {
-    const item = document.querySelector('.live__item.is-live-02');
-    const effect = document.querySelectorAll('[card="desktop"]');
-    const rect = item.getBoundingClientRect();
-
-    const randomMin = gsap.utils.random(-5, -30, 1, true);
-    const randomPlus = gsap.utils.random(5, 30, 1, true);
-    const { width } = rect;
-    const { height } = rect;
-
-    const arraySetters = [];
-
-    effect.forEach((item, index) => {
-      const setter = {
-        x: gsap.quickSetter(item, 'x', 'px'),
-        y: gsap.quickSetter(item, 'y', 'px'),
-        minus: gsap.utils.mapRange(0, width, randomMin(), randomPlus()),
-        plus: gsap.utils.mapRange(0, width, randomMin(), randomPlus()),
-      };
-      arraySetters.push(setter);
+  const mmProduct = gsap.matchMedia();
+  mmProduct.add('(min-width: 991px)', () => {
+    const tl = gsap.timeline({
+      defaults: { ease: 'expo', stagger: 0.1, autoAlpha: 0, yPercent: 100 },
+      scrollTrigger: { trigger: '.live__item.is-live-03', start: 'top bottom' },
     });
 
-    document.querySelector('body').addEventListener('mousemove', (e) => {
-      arraySetters.forEach((item, index) => {
-        const obj = arraySetters[index];
-        obj.x(obj.minus(e.clientX - rect.left));
-        obj.y(obj.plus(e.clientY - rect.top));
+    tl.from(firstLine, {});
+    tl.from(subTitle, { yPercent: 50, duration: 1.5 }, '1');
+    tl.from(button, { duration: 2 }, '1.2');
+
+    cardProducts();
+
+    const tlCard = gsap.timeline({
+      scrollTrigger: { trigger: '.live__item.is-live-02', start: 'top center' },
+    });
+    tlCard.from(card, { yPercent: 50, stagger: 0.1, autoAlpha: 0, duration: 1 });
+
+    function cardProducts() {
+      const item = document.querySelector('.live__item.is-live-02');
+      const effect = document.querySelectorAll('[card="desktop"]');
+      const rect = item.getBoundingClientRect();
+
+      const randomMin = gsap.utils.random(-5, -30, 1, true);
+      const randomPlus = gsap.utils.random(5, 30, 1, true);
+      const { width } = rect;
+      const { height } = rect;
+
+      const arraySetters = [];
+
+      effect.forEach((item, index) => {
+        const setter = {
+          x: gsap.quickSetter(item, 'x', 'px'),
+          y: gsap.quickSetter(item, 'y', 'px'),
+          minus: gsap.utils.mapRange(0, width, randomMin(), randomPlus()),
+          plus: gsap.utils.mapRange(0, width, randomMin(), randomPlus()),
+        };
+        arraySetters.push(setter);
       });
-    });
-  }
+
+      document.querySelector('body').addEventListener('mousemove', (e) => {
+        arraySetters.forEach((item, index) => {
+          const obj = arraySetters[index];
+          obj.x(obj.minus(e.clientX - rect.left));
+          obj.y(obj.plus(e.clientY - rect.top));
+        });
+      });
+
+      mmProduct.add('(max-width: 990px)', () => {
+        const tl = gsap.timeline({
+          defaults: { ease: 'expo', stagger: 0.1, autoAlpha: 0, yPercent: 100 },
+          scrollTrigger: { trigger: '.live__item.is-live-03', start: 'top bottom' },
+        });
+
+        tl.from(firstLine, {});
+        tl.from(subTitle, { yPercent: 50, duration: 1.5 }, '1');
+        tl.from(button, { duration: 2 }, '1.2');
+
+        const tlCard = gsap.timeline({
+          scrollTrigger: { trigger: '.live__item.is-live-02', start: 'top center' },
+        });
+        tlCard.from(card, { yPercent: 50, stagger: 0.1, autoAlpha: 0, duration: 1 });
+      });
+    }
+  });
 }
 
 function roadmap() {
