@@ -19,6 +19,7 @@ function init() {
   roadmap();
   featured();
   cardProducts();
+  dop();
 }
 
 function hero() {
@@ -200,4 +201,60 @@ function roadmap() {
       scrollTrigger: { trigger: item },
     });
   });
+}
+
+function dop() {
+  const mobBurger = document.querySelector('.header__burger');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      // Условие прокрутки в пикселях
+      mobBurger.classList.add('scrolled');
+    } else {
+      mobBurger.classList.remove('scrolled');
+    }
+  });
+
+  modalAll();
+
+  function modalAll() {
+    const modalOPen = document.querySelectorAll('[modal="open"]');
+    const modalClose = document.querySelector('[modal="close"]');
+    const modal = document.querySelector('.pop-up');
+
+    modalOPen.forEach((item) => {
+      item.addEventListener('click', modalToggle);
+    });
+
+    modalClose.addEventListener('click', modalToggle);
+
+    function modalToggle() {
+      if (!modal.classList.contains('open')) {
+        modal.classList.add('open');
+      } else {
+        modal.classList.remove('open');
+      }
+    }
+
+    const burger = document.querySelector('[nav="open"]');
+    const navClose = document.querySelector('[nav="close"]');
+    const navMobile = document.querySelector('.nav-moblie');
+
+    burger.addEventListener('click', navToggle);
+    navClose.addEventListener('click', navToggle);
+
+    const mobileLink = document.querySelectorAll('.nav-mobile__link');
+
+    mobileLink.forEach((item) => {
+      item.addEventListener('click', navToggle);
+    });
+
+    function navToggle() {
+      if (!navMobile.classList.contains('open')) {
+        navMobile.classList.add('open');
+      } else {
+        navMobile.classList.remove('open');
+      }
+    }
+  }
 }
