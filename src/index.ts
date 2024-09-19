@@ -112,6 +112,7 @@ function productOne() {
 
   const button = document.querySelector('.live__item.is-live-01 .button');
   const subTitle = document.querySelector('.live__item.is-live-01 .live__item-text');
+  const image = document.querySelector('.product__image-01');
 
   const tl = gsap.timeline({
     defaults: { ease: 'expo', stagger: 0.1, autoAlpha: 0, yPercent: 100 },
@@ -121,6 +122,7 @@ function productOne() {
   tl.from(firstLine, {});
   tl.from(subTitle, { yPercent: 50, duration: 1.5 }, '1');
   tl.from(button, { duration: 2 }, '1.2');
+  tl.from(image, {});
 }
 
 function productTwo() {
